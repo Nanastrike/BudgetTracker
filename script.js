@@ -5,8 +5,11 @@ const amountInput = document.getElementById("amount");
 const submitButton = document.getElementById("add-expense");
 const expenseList = document.getElementById("expense-list");
 const descriptionError = document.getElementById("description-error");
-let expenses =[];
+let expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 
+document.addEventListener("DOMContentLoaded",function(){
+    displayExpenses();
+});
 form.addEventListener('submit',submitForm);
 
 function submitForm(event){
@@ -35,6 +38,7 @@ function submitForm(event){
     expenses.push(expense);
     console.log(expenses);
     form.reset();
+    saveLocalStorage();
 
     displayExpenses();
 }
@@ -57,4 +61,8 @@ function displayExpenses(){
 
         expenseList.appendChild(li);
     })
+}
+
+function saveLocalStorage(){
+    localStorage.setItem("expenses",JSON.stringify(expenses));
 }
